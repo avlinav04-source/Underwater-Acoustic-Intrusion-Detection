@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Underwater Acoustic Intrusion Detection
 
 A Deep Learning system for passive underwater acoustic vessel classification and intrusion detection prototyping using the **DeepShip** dataset. Powered by a **Hybrid Depthwise Separable CNN (DWS-CNN) and Vision Transformer (ViT)** architecture.
@@ -199,3 +200,7 @@ Open your browser at: `http://127.0.0.1:7860`.
 * [Limitations & Constraints](docs/limitations.md)
 * [Results Template](docs/results_template.md)
 * [Google Colab GPU Guide](notebooks/training_guide.md)
+=======
+# Underwater-Acoustic-Intrusion-Detection
+Underwater vessel classification using a hybrid Depthwise Separable CNN (DWS-CNN) and Vision Transformer (ViT) architecture with acoustic signal processing and deep learning.
+>>>>>>> f3f22fa129028bf8f584c5e58903675e77336ce2
