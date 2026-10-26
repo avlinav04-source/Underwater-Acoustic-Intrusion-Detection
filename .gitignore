@@ -1,0 +1,57 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Build files
+build/
+dist/
+*.egg-info/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Dataset and audio files - DO NOT UPLOAD
+data/
+datasets/
+raw_data/
+DeepShip-main/
+*.wav
+*.mp3
+*.flac
+*.ogg
+*.m4a
+*.npy
+*.npz
+
+# Model weights - DO NOT UPLOAD
+*.h5
+*.keras
+*.ckpt
+*.weights.h5
+*.savedmodel/
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Generated output files
+outputs/*
+!outputs/.gitkeep
+
+
+# Keep model Python source files
+!models/*.py
+
+# IDE and system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,87 @@
+# Configuration for Underwater Acoustic Intrusion Detection
+# Hybrid DWS-CNN + ViT Architecture for DeepShip Dataset
+
+dataset:
+  # Path to local DeepShip dataset root directory
+  raw_data_dir: "C:\\Users\\avlin\\Downloads\\UNDERWATER PROJECT\\DeepShip-main"
+  classes:
+    - "Cargo"
+    - "Passengership"
+    - "Tanker"
+    - "Tug"
+  supported_extensions:
+    - ".wav"
+
+audio:
+  # Target sampling rate for resampling (DeepShip native is 32000 Hz)
+  target_sample_rate: 16000
+  # Duration in seconds for each segmented audio window
+  segment_duration: 3.0
+  # Minimum recording duration in seconds to consider valid
+  min_duration: 3.0
+  # Audio normalization target peak (avoiding 0-division)
+  normalize_peak: 0.95
+  mono: true
+
+features:
+  # Log-Mel Spectrogram extraction parameters
+  n_fft: 1024
+  hop_length: 512
+  n_mels: 64
+  f_min: 20.0
+  f_max: 8000.0
+  # Power to db conversion reference
+  top_db: 80.0
+
+split:
+  # Recording-level split ratios (train/val/test)
+  train_ratio: 0.70
+  val_ratio: 0.15
+  test_ratio: 0.15
+  random_seed: 42
+  # Handling of scarce classes (e.g., Tug with only 3 recordings)
+  handle_scarce_classes: "recording_level_distribute"
+
+model:
+  num_classes: 4
+  # Expected input shape: [batch_size, n_mels, time_steps, 1]
+  # For 16000 Hz, 3.0s: samples = 48000. Time steps = ceil(48000 / hop_length) ~ 94
+  input_shape: [64, 94, 1]
+
+  dws_cnn:
+    base_filters: 32
+    depth_multiplier: 1
+    dropout_rate: 0.3
+    dense_units: 128
+
+  vit:
+    patch_size: 8
+    projection_dim: 64
+    num_heads: 4
+    transformer_layers: 3
+    mlp_dim: 128
+    dropout_rate: 0.2
+
+  hybrid:
+    fusion_strategy: "concat_dense"
+    fusion_units: 128
+    final_dropout: 0.3
+
+training:
+  batch_size: 16
+  epochs: 35
+  learning_rate: 0.0005
+  weight_decay: 0.0001
+  early_stopping_patience: 8
+  reduce_lr_patience: 4
+  reduce_lr_factor: 0.5
+  min_lr: 0.00001
+  use_class_weights: true
+
+paths:
+  outputs_dir: "outputs"
+  models_dir: "models"
+  features_dir: "outputs/features"
+  metadata_csv: "outputs/audio_metadata.csv"
+  split_manifest: "outputs/dataset_split.json"
+  eval_report: "outputs/evaluation_report.json"
